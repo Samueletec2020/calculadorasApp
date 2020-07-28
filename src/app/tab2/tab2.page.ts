@@ -8,6 +8,7 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
+  //variaveis
   public calculo='';
   public resultado: string;
 
@@ -17,6 +18,8 @@ export class Tab2Page {
 
   constructor(public alertController: AlertController) {}
 
+
+    //adicionar numero 
     adicionarNumero(valor: string){
       if(this.resultado){
         this.apagarTudo();
@@ -24,13 +27,16 @@ export class Tab2Page {
       this.calculo=this.calculo+valor
 
     }
+    //metodo par adicionar um ponto 
     adicionarPonto(){
       if (this.ponto) {
         return ;
       }
+     
       this.calculo += ".";
       this.ponto =true
     }
+     //adicionar operações 
     adicionarOperacao(operador: string){
 
       if(this.resultado){
@@ -45,11 +51,13 @@ export class Tab2Page {
       this.calculo += operador;
       this.ponto=false;
     }
+    //apagar tudo para limpar a tela 
     public apagarTudo() {
       this.calculo= ''; //vazia
       this.resultado= null; //null
       this.ponto=false;
     }
+  //   para apagar o último dígito da operação
 
     public apagarUltimo() {
       const ultimo =this.calculo.slice(-1);
@@ -59,11 +67,16 @@ export class Tab2Page {
       this.calculo = this.calculo.slice(0,-1);
     }
 
-
+    //calcular o resultado da conta 
     public calcularResultado(){
       try{
         this.resultado=evaluate(this.calculo);
-      } catch (e) {
+
+        
+      } 
+    // evitar falhas no app caso algo dê errado 
+
+      catch (e) {
         this.resultado='';
         this.presentAlert('ERRO !!','CALCULO INVÁLIDO, VERIFIQUE!');
 
